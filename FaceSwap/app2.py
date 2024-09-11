@@ -1,4 +1,4 @@
-# app.py
+# app2.py
 
 from flask import Flask, request, jsonify
 from face_swapper import FaceSwapper
@@ -16,6 +16,11 @@ face_swapper = FaceSwapper(MODEL_PATH, roop_directory="roop")
 @app.route('/swap', methods=['POST'])
 def swap_faces():
     try:
+        # Extract data from the request
+        data = request.json
+        if not data or not all(k in data for k in ['image_path', 'text_data', 'audio_path', 'chosen_video_path', 'chosen_background_path']):
+            return jsonify({"error": "Invalid input data."}), 400
+        
         # Run face swapping process
         face_swapper.swap_faces(TARGET_PATH, SOURCE_PATH, OUTPUT_PATH)
         return jsonify({"message": "Face swapping completed", "output_path": OUTPUT_PATH}), 200
@@ -27,13 +32,4 @@ def status():
     return jsonify({"status": "Server is running"}), 200
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=False, port=5001)
-
-
-
-
-
-    # # Start Flask app
-    # ngrok_tunnel = ngrok.connect()
-    # print(ngrok_tunnel)
-    # app.run(port=81)
+    app.run(host='0.0.0.0', port=5001)
