@@ -27,4 +27,13 @@ def status():
     return jsonify({"status": "Server is running"}), 200
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', debug=False, port=5001)
+
+
+
+
+
+    # # Start Flask app
+    # ngrok_tunnel = ngrok.connect()
+    # print(ngrok_tunnel)
+    # app.run(port=81)
