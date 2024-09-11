@@ -105,7 +105,7 @@ def upload():
         'text_data': text_data,
         'audio_path': audio_path,
         'chosen_video_path': chosen_video_path,
-        'chosen_background_path': chosen_background_path
+        'chosen_background_path': chosen_background_path 
     }
     save_metadata(data)
 
