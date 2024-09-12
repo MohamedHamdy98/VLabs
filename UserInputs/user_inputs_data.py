@@ -20,25 +20,31 @@ def get_uploaded_data():
     try:
         with open(METADATA_FILE, 'r') as f:
             metadata = json.load(f)
+        logging.info(f"Successfully loaded {len(metadata)} entries from metadata.")
         return metadata
     except FileNotFoundError:
-        logging.error("Metadata file not found.")
+        logging.error(f"Metadata file not found at {METADATA_FILE}.")
         return []
     except json.JSONDecodeError:
         logging.error("Error decoding JSON from metadata file.")
         return []
+    except Exception as e:
+        logging.error(f"Unexpected error: {e}")
+        return []
 
 # Example usage of uploaded data paths
 uploaded_data = get_uploaded_data()
-for data in uploaded_data:
-    image_path = data.get('image_path', 'Not available')
-    audio_path = data.get('audio_path', 'Not available')
-    chosen_video_path = data.get('chosen_video_path', 'Not available')
-    chosen_background_path = data.get('chosen_background_path', 'Not available')
-    logging.info(f"Image Path: {image_path}")
-    logging.info(f"Audio Path: {audio_path}")
-    logging.info(f"Chosen Video Path: {chosen_video_path}")
-    logging.info(f"Chosen Background Path: {chosen_background_path}")
+if uploaded_data:
+    for data in uploaded_data:
+        IMAGE_PATH = data.get('image_path', 'Not available')
+        TEXT_SCRIPT = data.get('text_data', 'Not available')
+        AUDIO_PATH = data.get('audio_path', 'Not available')
+        CHOSEN_VIDEO_PATH = data.get('chosen_video_path', 'Not available')
+        CHOSEN_BACKGROUND_PATH = data.get('chosen_background_path', 'Not available')
+        logging.info(f"Image Path: {IMAGE_PATH}, Audio Path: {AUDIO_PATH}, "
+                     f"Chosen Video Path: {CHOSEN_VIDEO_PATH}, Chosen Background Path: {CHOSEN_BACKGROUND_PATH}")
+else:
+    logging.info("No uploaded data available.")
 
 
 """

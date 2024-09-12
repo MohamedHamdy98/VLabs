@@ -10,25 +10,32 @@ from UserInputs.user_inputs_data import IMAGE_PATH, CHOSEN_VIDEO_PATH
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Ensure directory exists
-output_dir = "/srv/faceSwapOutputsVideos/"
+# Ensure output directory exists
+output_dir = os.getenv('OUTPUT_DIR', "/srv/faceSwapOutputsVideos/")
 os.makedirs(output_dir, exist_ok=True)
+logger.info(f"Output directory set to: {output_dir}")
 
-# for keep the files in server
+# Generate unique output file
 unique_id = str(uuid.uuid4())
 output_path = os.path.join(output_dir, f"output_{unique_id}.mp4")
+logger.info(f"Output file path: {output_path}")
 
-# for temporary files that auto cleaned up
-"""with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir="/srv/faceSwapOutputsVideos") as temp_file:
+# Uncomment the following block for temporary files (auto-cleanup)
+"""
+with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=output_dir) as temp_file:
     output_path = temp_file.name
-    logger.info(f"Temporary file created: {output_path}")"""
+    logger.info(f"Temporary file created: {output_path}")
+"""
 
-
+# Define paths
 TARGET_PATH = CHOSEN_VIDEO_PATH
 SOURCE_PATH = IMAGE_PATH
 OUTPUT_PATH = output_path
 MODEL_PATH = "./models/inswapper_128.onnx"
 
+logger.info(f"Target video path: {TARGET_PATH}")
+logger.info(f"Source image path: {SOURCE_PATH}")
+logger.info(f"Model path: {MODEL_PATH}")
 
 
 # For cleaning Files by Time

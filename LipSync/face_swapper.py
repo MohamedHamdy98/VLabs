@@ -29,7 +29,7 @@ class FaceSwapper:
             'python3', 'inference.py',
             '--face', self.face_path,
             '--audio', self.audio_path,
-            '--pads', ' '.join(map(str, self.pads)),
+            '--pads', self.pads,
             '--outfile', self.output_path
         ]
 

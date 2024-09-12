@@ -27,7 +27,7 @@ class AudioProcessor:
             'cs': 1000, 'ar': 500, 'zh-cn': 500, 'ja': 500
         }
 
-    def transcribe_audio(self, audio_file, language):
+    def transcribe_audio(self, audio_file, language, lang_auto_detect):
         """
         Transcribe audio from a file into text using Google Speech Recognition.
         
@@ -35,16 +35,26 @@ class AudioProcessor:
         :param language: Language code for speech recognition.
         :return: Transcribed text or None if an error occurs.
         """
-        try:
-            with AudioFile(audio_file) as source:
-                audio = self.recognizer.record(source)
-                text = self.recognizer.recognize_google(audio, language=language)
-                return text
-        except Exception as e:
-            print(f"Error transcribing audio: {e}")
-            return None
+        if not language:
+            try:
+                with AudioFile(audio_file) as source:
+                    audio = self.recognizer.record(source)
+                    text = self.recognizer.recognize_google(audio, language=lang_auto_detect)
+                    return text
+            except Exception as e:
+                print(f"Error transcribing audio: {e}")
+                return None
+        else:
+            try:
+                with AudioFile(audio_file) as source:
+                    audio = self.recognizer.record(source)
+                    text = self.recognizer.recognize_google(audio, language=language)
+                    return text
+            except Exception as e:
+                print(f"Error transcribing audio: {e}")
+                return None
 
-    def translate_text(self, text, src_lang, trans_lang):
+    def translate_text(self, text, src_lang, trans_lang, lang_auto_detect):
         """
         Translate text from source language to target language using Google Translator.
         
@@ -53,12 +63,20 @@ class AudioProcessor:
         :param trans_lang: Target language code.
         :return: Translated text or None if an error occurs.
         """
-        try:
-            translator = GoogleTranslator(source=src_lang, target=trans_lang)
-            return translator.translate(text)
-        except Exception as e:
-            print(f"Error translating text: {e}")
-            return None
+        if not src_lang:
+            try:
+                translator = GoogleTranslator(source=lang_auto_detect, target=trans_lang)
+                return translator.translate(text)
+            except Exception as e:
+                print(f"Error translating text: {e}")
+                return None
+        else:
+            try:
+                translator = GoogleTranslator(source=src_lang, target=trans_lang)
+                return translator.translate(text)
+            except Exception as e:
+                print(f"Error translating text: {e}")
+                return None
 
     def predict(self, prompt, language, audio_file_pth=None, mic_file_path=None, use_mic=False, voice_cleanup=False, no_lang_auto_detect=False):
         """

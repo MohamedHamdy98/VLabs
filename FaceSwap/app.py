@@ -13,6 +13,30 @@ model_setup.setup_environment()
 # Initialize face swapper
 face_swapper = FaceSwapper(MODEL_PATH, roop_directory="roop")
 
+
+"""
+
+For Runing model without API
+
+"""
+
+# Without API
+def run_face_swap_loacl(TARGET_PATH, SOURCE_PATH):
+    try:
+        face_swapper.swap_faces(TARGET_PATH, SOURCE_PATH, OUTPUT_PATH)
+        print({"message": "Face swapping completed", "output_path": OUTPUT_PATH})
+        return OUTPUT_PATH
+    except Exception as e:
+        print('Error at FaceSwap: ' + str(e))
+
+
+"""
+
+For Runing model with API
+
+"""
+
+# Wit API
 @app.route('/swap', methods=['POST'])
 def swap_faces():
     try:
@@ -27,6 +51,6 @@ def status():
     return jsonify({"status": "Server is running"}), 200
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=False, port=2)
+    app.run(host='0.0.0.0', debug=False, port=5002)
 
 

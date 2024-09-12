@@ -1,5 +1,28 @@
-User Inputs = Port 1
-Translation = Port 3
-Face Swap = Port 2
-Background = Port 4
-Lip Sync = Port 5
+main.py = Port 5000
+User Inputs = Port 5001
+Face Swap = Port 5002
+Background = Port 5003
+Translation = Port 5004
+Lip Sync = Port 5005
+
+
+/project
+  /face_swap
+    - app.py
+    - config.py
+    - face_swapper.py
+    - model_setup.py
+  /change_background
+    - app.py
+    - clear_dir.py
+    - model_setup.py
+  /translation
+    - app.py
+    - audio_processing.py
+    - model_manager.py
+    - model_setup.py
+  /lip_sync
+    - app.py
+    - face_swapper.py
+    - model_setup.py
+  - main_app.py  # New main web app

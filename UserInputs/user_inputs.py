@@ -124,4 +124,31 @@ def get_uploaded_data():
     return jsonify(metadata), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False, port=1)
+    app.run(host='0.0.0.0', debug=False, port=5001)
+
+
+# Example about : the output of metadata.json
+"""
+
+[
+    {
+        "image_path": "/srv/uploads/example_image.png",
+        "text_data": "Sample text",
+        "audio_path": "/srv/uploads/example_audio.mp3",
+        "chosen_video_path": "/srv/videos/example_video.mp4",
+        "chosen_background_path": "/srv/backgrounds/example_background.jpg"
+    },
+    {
+        "image_path": "/srv/uploads/second_image.png",
+        "text_data": "Another text sample",
+        "audio_path": "/srv/uploads/second_audio.wav",
+        "chosen_video_path": "/srv/videos/second_video.mp4",
+        "chosen_background_path": "/srv/backgrounds/second_background.jpg"
+    }
+]
+
+
+
+
+"""
+
