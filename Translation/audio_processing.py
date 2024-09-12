@@ -165,3 +165,4 @@ class AudioProcessor:
         shell_command = f"ffmpeg -y -i {audio_file} -af lowpass=8000,highpass=75,areverse,silenceremove=start_periods=1:start_silence=0:start_threshold=0.02,areverse,silenceremove=start_periods=1:start_silence=0:start_threshold=0.02 {out_filename}"
         subprocess.run(shell_command, shell=True, check=True)
         return out_filename
+ 
