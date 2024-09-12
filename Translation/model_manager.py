@@ -6,6 +6,9 @@ from TTS.utils.generic_utils import get_user_data_dir
 
 class ModelManagerWrapper:
     def __init__(self):
+        # Change to the directory where the repository is cloned
+        os.chdir("xtts2-hf")
+
         # Define the model name and path for downloading and loading
         self.model_name = "tts_models/multilingual/multi-dataset/xtts_v2"
         # Download the model and get the path where it's saved

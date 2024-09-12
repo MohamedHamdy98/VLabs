@@ -1,11 +1,16 @@
 from flask import Flask, request, jsonify, send_file
 from model_setup import setup_environment
 from audio_processing import AudioProcessor
+import os
 
 app = Flask(__name__)
 
 # Setup environment and models
 setup_environment.setup_environment()
+
+# Change to the correct directory for model files if needed
+os.chdir("xtts2-hf")
+
 audio_processor = AudioProcessor()
 
 @app.route('/predict', methods=['POST'])

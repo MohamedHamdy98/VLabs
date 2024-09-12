@@ -13,6 +13,9 @@ from model_manager import ModelManagerWrapper
 
 class AudioProcessor:
     def __init__(self):
+        # Change to the directory where the repository is cloned
+        os.chdir("xtts2-hf")
+
         # Initialize the speech recognizer and the model manager
         self.recognizer = Recognizer()
         self.model_manager = ModelManagerWrapper()
@@ -70,6 +73,9 @@ class AudioProcessor:
         :param no_lang_auto_detect: Boolean flag to skip automatic language detection.
         :return: Path to the merged output audio file or None if an error occurs.
         """
+        # Change to the directory where the repository is cloned
+        os.chdir("xtts2-hf")
+
         # Check if the provided language is supported
         if language not in self.supported_languages:
             print(f"Language {language} is not supported.")
@@ -151,6 +157,9 @@ class AudioProcessor:
         :param audio_file: Path to the audio file to be cleaned.
         :return: Path to the cleaned audio file.
         """
+        # Change to the directory where the repository is cloned
+        os.chdir("xtts2-hf")
+
         out_filename = f"/content/{uuid.uuid4()}.wav"
         # FFmpeg command to process the audio file
         shell_command = f"ffmpeg -y -i {audio_file} -af lowpass=8000,highpass=75,areverse,silenceremove=start_periods=1:start_silence=0:start_threshold=0.02,areverse,silenceremove=start_periods=1:start_silence=0:start_threshold=0.02 {out_filename}"

@@ -2,8 +2,14 @@ import os
 import subprocess
 
 def setup_environment():
+    """
+    Set up the environment by cloning the repository, installing dependencies,
+    and downloading necessary files.
+    """
     # Clone the repository
     subprocess.run(["git", "clone", "-b", "dev", "https://github.com/camenduru/xtts2-hf.git"], check=True)
+    
+    # Change to the repository directory
     os.chdir("xtts2-hf")
 
     # Install core requirements
@@ -25,4 +31,5 @@ def setup_environment():
     subprocess.run(["unzip", "ffmpeg.zip"], check=True)
 
     print("Environment setup complete.")
+
 
