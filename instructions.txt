@@ -1,0 +1,5 @@
+User Inputs = Port 1
+Translation = Port 3
+Face Swap = Port 2
+Background = Port 4
+Lip Sync = Port 5
