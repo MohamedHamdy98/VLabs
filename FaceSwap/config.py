@@ -4,7 +4,7 @@ import logging
 import os
 import uuid
 import tempfile
-from UserInputs.user_inputs_data import IMAGE_PATH, CHOSEN_VIDEO_PATH
+from UserInputs.get_user_inputs_data import get_face_swap_data
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -28,8 +28,8 @@ with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=output_dir) as
 """
 
 # Define paths
-TARGET_PATH = CHOSEN_VIDEO_PATH
-SOURCE_PATH = IMAGE_PATH
+SOURCE_PATH, TARGET_PATH = get_face_swap_data()
+
 OUTPUT_PATH = output_path
 MODEL_PATH = "./models/inswapper_128.onnx"
 

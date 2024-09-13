@@ -1,0 +1,17 @@
+Run app.py:
+
+    * endpoints : 
+        1- endpoint : user_input_data_faceSwap
+        2- endpoint : swap
+        3- endpoint : status
+
+    * Port : 5001
+
+    * Example about : the output of metadata.json
+        [
+            {
+                "image_path": "/srv/uploads/example_image.png",
+                "chosen_video_path": "/srv/videos/example_video.mp4",
+            },
+
+        ]

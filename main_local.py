@@ -1,4 +1,4 @@
-from UserInputs.user_inputs_data import AUDIO_PATH, CHOSEN_BACKGROUND_PATH, CHOSEN_VIDEO_PATH, IMAGE_PATH, TEXT_SCRIPT
+from UserInputs.get_user_inputs_data import AUDIO_PATH, CHOSEN_BACKGROUND_PATH, CHOSEN_VIDEO_PATH, IMAGE_PATH, TEXT_SCRIPT
 from FaceSwap.app import run_face_swap_loacl
 from Background.app import run_change_background_local
 from LipSync.app import lip_sync

@@ -1,9 +1,8 @@
 main.py = Port 5000
-User Inputs = Port 5001
-Face Swap = Port 5002
-Background = Port 5003
-Translation = Port 5004
-Lip Sync = Port 5005
+Face Swap = Port 5001
+Background = Port 5002
+Translation = Port 5003
+Lip Sync = Port 5004
 
 
 /project

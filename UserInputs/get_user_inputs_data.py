@@ -11,19 +11,35 @@ LOG_FILE = os.path.join('/srv/logs', f'{script_name}.log')
 # Ensure the log directory exists
 os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
 
-METADATA_FILE = '/srv/uploads/metadata.json'
+METADATA_FILE_FACE_SWAP = '/srv/uploads/metadata_faceSwap.json'
 
 # Configure logging
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def get_uploaded_data():
+    
+def clear_metadata_file(metafile):
+    """
+    Clear the contents of the metadata file.
+    """
     try:
-        with open(METADATA_FILE, 'r') as f:
+        open(metafile, 'w').close()
+        logging.info("Metadata file cleared successfully.")
+    except Exception as e:
+        logging.error(f"Error clearing metadata file: {e}")
+
+"""
+
+For Get Face Swap Data
+
+"""
+def get_meta_data_file_face_swap():
+    try:
+        with open(METADATA_FILE_FACE_SWAP, 'r') as f:
             metadata = json.load(f)
         logging.info(f"Successfully loaded {len(metadata)} entries from metadata.")
         return metadata
     except FileNotFoundError:
-        logging.error(f"Metadata file not found at {METADATA_FILE}.")
+        logging.error(f"Metadata file not found at {METADATA_FILE_FACE_SWAP}.")
         return []
     except json.JSONDecodeError:
         logging.error("Error decoding JSON from metadata file.")
@@ -31,20 +47,23 @@ def get_uploaded_data():
     except Exception as e:
         logging.error(f"Unexpected error: {e}")
         return []
-
-# Example usage of uploaded data paths
-uploaded_data = get_uploaded_data()
-if uploaded_data:
-    for data in uploaded_data:
+    
+def get_face_swap_data():
+    # Example usage of uploaded data paths
+    uploaded_data = get_meta_data_file_face_swap()
+    if uploaded_data:
+        data = uploaded_data[0]
         IMAGE_PATH = data.get('image_path', 'Not available')
-        TEXT_SCRIPT = data.get('text_data', 'Not available')
-        AUDIO_PATH = data.get('audio_path', 'Not available')
         CHOSEN_VIDEO_PATH = data.get('chosen_video_path', 'Not available')
-        CHOSEN_BACKGROUND_PATH = data.get('chosen_background_path', 'Not available')
-        logging.info(f"Image Path: {IMAGE_PATH}, Audio Path: {AUDIO_PATH}, "
-                     f"Chosen Video Path: {CHOSEN_VIDEO_PATH}, Chosen Background Path: {CHOSEN_BACKGROUND_PATH}")
-else:
-    logging.info("No uploaded data available.")
+        logging.info(f"Image Path: {IMAGE_PATH} and "f"Chosen Video Path: {CHOSEN_VIDEO_PATH}")
+
+        clear_metadata_file(METADATA_FILE_FACE_SWAP)
+
+        return IMAGE_PATH, CHOSEN_VIDEO_PATH 
+    else:
+        logging.info("No uploaded data available.")
+        return None, None
+
 
 
 """
